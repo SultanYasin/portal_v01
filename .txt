@@ -1,0 +1,185 @@
+سأقوم باقتراح هيكل ملفات مناسب لتطبيق بوابة إدارة المستخدمين والفواتير باستخدام Next.js. سأقوم بتنظيمه بطريقة قابلة للتطوير ومتوافقة مع أحدث ممارسات Next.js.
+
+```
+src/
+├── app/
+│   ├── (auth)/
+│   │   ├── login/
+│   │   │   └── page.tsx
+│   │   ├── register/
+│   │   │   └── page.tsx
+│   │   └── layout.tsx
+│   ├── (dashboard)/
+│   │   ├── dashboard/
+│   │   │   ├── page.tsx
+│   │   │   └── loading.tsx
+│   │   ├── users/
+│   │   │   ├── page.tsx
+│   │   │   ├── [id]/
+│   │   │   │   └── page.tsx
+│   │   │   └── loading.tsx
+│   │   ├── invoices/
+│   │   │   ├── page.tsx
+│   │   │   ├── create/
+│   │   │   │   └── page.tsx
+│   │   │   ├── [id]/
+│   │   │   │   └── page.tsx
+│   │   │   └── loading.tsx
+│   │   ├── settings/
+│   │   │   └── page.tsx
+│   │   └── layout.tsx
+│   ├── api/
+│   │   ├── auth/
+│   │   │   └── [...nextauth]/
+│   │   │       └── route.ts
+│   │   ├── users/
+│   │   │   └── route.ts
+│   │   └── invoices/
+│   │       └── route.ts
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── ui/
+│   │   ├── button.tsx
+│   │   ├── input.tsx
+│   │   ├── select.tsx
+│   │   ├── table.tsx
+│   │   └── modal.tsx
+│   ├── forms/
+│   │   ├── login-form.tsx
+│   │   ├── user-form.tsx
+│   │   └── invoice-form.tsx
+│   ├── dashboard/
+│   │   ├── sidebar.tsx
+│   │   ├── header.tsx
+│   │   └── stats-cards.tsx
+│   └── shared/
+│       ├── loading-spinner.tsx
+│       └── error-message.tsx
+├── lib/
+│   ├── utils/
+│   │   ├── auth.ts
+│   │   ├── api.ts
+│   │   └── helpers.ts
+│   ├── hooks/
+│   │   ├── use-auth.ts
+│   │   └── use-toast.ts
+│   └── constants/
+│       ├── routes.ts
+│       └── config.ts
+├── types/
+│   ├── user.ts
+│   └── invoice.ts
+├── styles/
+│   └── globals.css
+├── data/
+│   ├── mock-users.ts
+│   └── mock-invoices.ts
+└── providers/
+    ├── auth-provider.tsx
+    └── theme-provider.tsx
+```
+
+شرح الهيكل:
+
+1. **app/**
+   - يستخدم نظام التوجيه الجديد في Next.js 13+
+   - مجلدات محمية بين قوسين `(auth)` و `(dashboard)` للتجميع المنطقي
+   - صفحات تحميل وصفحات خطأ لكل مسار
+
+2. **components/**
+   - `ui/`: مكونات واجهة المستخدم الأساسية
+   - `forms/`: نماذج إدخال البيانات
+   - `dashboard/`: مكونات خاصة بلوحة التحكم
+   - `shared/`: مكونات مشتركة
+
+3. **lib/**
+   - `utils/`: وظائف مساعدة
+   - `hooks/`: خطافات React المخصصة
+   - `constants/`: ثوابت التطبيق
+
+4. **types/**
+   - تعريفات TypeScript للكائنات الرئيسية
+
+5. **providers/**
+   - مزودي السياق لـ React مثل المصادقة والسمة
+
+6. **data/**
+   - البيانات الوهمية للتطوير
+
+هذا الهيكل:
+- قابل للتطوير
+- سهل الصيانة
+- يتبع مبدأ الفصل بين المسؤوليات
+- متوافق مع أحدث ممارسات Next.js
+- يدعم التحميل المتدرج والتصيير الجانبي
+
+هل تريد مني شرح أي جزء بالتفصيل أو إضافة أي مجلدات أخرى؟
+
+
+
+
+
+
+
+___________________________________________________
+
+
+import { createContext, useState, useMemo } from 'react';
+import { Theme, createTheme } from '@mui/material/styles';
+
+// تعريف نوع البيانات للوضع
+export type ColorMode = {
+  toggleColorMode: () => void;
+};
+
+// إنشاء السياق
+export const ColorModeContext = createContext<ColorMode>({ toggleColorMode: () => {} });
+
+// تعريف الثيمات
+export const tokens = (mode: 'light' | 'dark') => ({
+  ...(mode === 'dark'
+    ? {
+        // قيم الألوان للوضع الداكن
+        primary: {
+          main: '#1976d2',
+        },
+        background: {
+          default: '#121212',
+        },
+      }
+    : {
+        // قيم الألوان للوضع الفاتح
+        primary: {
+          main: '#1976d2',
+        },
+        background: {
+          default: '#ffffff',
+        },
+      }),
+});
+
+export const useMode = () => {
+  const [mode, setMode] = useState<'light' | 'dark'>('light');
+
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () =>
+        setMode((prev) => (prev === 'light' ? 'dark' : 'light')),
+    }),
+    []
+  );
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+          ...tokens(mode),
+        },
+      }),
+    [mode]
+  );
+
+  return [theme, colorMode] as const;
+};

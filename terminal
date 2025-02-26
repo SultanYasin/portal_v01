@@ -1,0 +1,79 @@
+mkdir -p src/app/(auth)/login
+mkdir -p src/app/(auth)/register
+touch src/app/(auth)/layout.tsx
+
+mkdir -p src/app/(dashboard)/dashboard
+mkdir -p src/app/(dashboard)/users/[id]
+mkdir -p src/app/(dashboard)/invoices/create
+mkdir -p src/app/(dashboard)/invoices/[id]
+mkdir -p src/app/(dashboard)/settings
+touch src/app/(dashboard)/layout.tsx
+
+mkdir -p src/app/api/auth/[...nextauth]
+mkdir -p src/app/api/users
+mkdir -p src/app/api/invoices
+
+mkdir -p src/components/ui
+mkdir -p src/components/forms
+mkdir -p src/components/dashboard
+mkdir -p src/components/shared
+
+mkdir -p src/lib/utils
+mkdir -p src/lib/hooks
+mkdir -p src/lib/constants
+
+mkdir -p src/types
+mkdir -p src/styles
+mkdir -p src/providers
+
+# إنشاء الملفات الأساسية (بدون محتوى)
+touch src/app/(auth)/login/page.tsx
+touch src/app/(auth)/register/page.tsx
+
+touch src/app/(dashboard)/dashboard/page.tsx
+touch src/app/(dashboard)/dashboard/loading.tsx
+touch src/app/(dashboard)/users/page.tsx
+touch src/app/(dashboard)/users/[id]/page.tsx
+touch src/app/(dashboard)/users/loading.tsx
+touch src/app/(dashboard)/invoices/page.tsx
+touch src/app/(dashboard)/invoices/create/page.tsx
+touch src/app/(dashboard)/invoices/[id]/page.tsx
+touch src/app/(dashboard)/invoices/loading.tsx
+touch src/app/(dashboard)/settings/page.tsx
+
+touch src/app/api/auth/[...nextauth]/route.ts
+touch src/app/api/users/route.ts
+touch src/app/api/invoices/route.ts
+
+touch src/components/ui/button.tsx
+touch src/components/ui/input.tsx
+touch src/components/ui/select.tsx
+touch src/components/ui/table.tsx
+touch src/components/ui/modal.tsx
+
+touch src/components/forms/login-form.tsx
+touch src/components/forms/user-form.tsx
+touch src/components/forms/invoice-form.tsx
+
+touch src/components/dashboard/sidebar.tsx
+touch src/components/dashboard/header.tsx
+touch src/components/dashboard/stats-cards.tsx
+
+touch src/components/shared/loading-spinner.tsx
+touch src/components/shared/error-message.tsx
+
+touch src/lib/utils/auth.ts
+touch src/lib/utils/api.ts
+touch src/lib/utils/helpers.ts
+
+touch src/lib/hooks/use-auth.ts
+touch src/lib/hooks/use-toast.ts
+
+touch src/lib/constants/routes.ts
+touch src/lib/constants/config.ts
+
+touch src/types/user.ts
+touch src/types/invoice.ts
+
+touch src/providers/auth-provider.tsx
+touch src/providers/theme-provider.tsx 
