@@ -1,5 +1,3 @@
-
-
 /*
  OOOOOOOOOOOOOOOOOOOOOOOOOOBBBBBBBBBBBSSSSSSSSSSSSSSSSSSSS:
 
@@ -7,12 +5,13 @@
 layout.tsx //{ should }// remains a pure server component for better performance..   
 */
 
-
-
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import ThemeWrapper from '@/components/theme/theme-wrapper';
+import Navbar from '@/components/layout/navbar';
+import Footer from '@/components/layout/footer';
+import PageContainer from '@/components/layout/page-container';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,16 +30,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
-        <ThemeWrapper>{children}</ThemeWrapper>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeWrapper>
+          <PageContainer>
+            <Navbar />
+            {children}
+            <Footer />
+          </PageContainer>
+        </ThemeWrapper>
       </body>
     </html>
   );
 }
-
-

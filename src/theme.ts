@@ -110,21 +110,13 @@ export const tokens = (mode: 'light' | 'dark') => ({
 export const useMode = () => {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
 
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () =>
-        setMode((prev) => (prev === 'light' ? 'dark' : 'light')),
-    }),
-    []
+  const colorMode = useMemo(() => ({
+    toggleColorMode: () => setMode((prev) => (prev === 'light' ? 'dark' : 'light')),
+    }),[]
   );
 
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-          ...tokens(mode),
-        },
+  const theme = useMemo(() =>createTheme({
+        palette: { mode, ...tokens(mode)},
       }),
     [mode]
   );

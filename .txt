@@ -183,3 +183,9 @@ export const useMode = () => {
 
   return [theme, colorMode] as const;
 };
+
+
+
+git remote add origin https://github.com/SultanYasin/portal_v01.git
+git branch -M main
+git push -u origin main

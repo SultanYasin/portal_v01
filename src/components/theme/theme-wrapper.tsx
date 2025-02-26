@@ -3,11 +3,7 @@
 import { ColorModeContext, useMode } from '@/theme';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 
-export default function ThemeWrapper({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ThemeWrapper({ children }: { children: React.ReactNode }) {
   const [theme, colorMode] = useMode();
 
   return (
