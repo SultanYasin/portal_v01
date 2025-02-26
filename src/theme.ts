@@ -1,28 +1,10 @@
 import { createContext, useState, useMemo } from 'react';
 import { createTheme } from '@mui/material/styles';
 
-export type ColorMode = {
-  toggleColorMode: () => void;
-};
-
-export const ColorModeContext = createContext<ColorMode>({
-  toggleColorMode: () => {},
-});
-
-export const tokens = (mode: 'light' | 'dark') => ({
+// color design tokens export
+export const tokens = (mode) => ({
   ...(mode === 'dark'
     ? {
-        primary: {
-          100: '#cce4f6',
-          200: '#99c9ed',
-          300: '#66afe5',
-          400: '#3394dc',
-          500: '#1976d2',
-          600: '#145ea8',
-          700: '#0f477e',
-          800: '#0a2f54',
-          900: '#05182a',
-        },
         grey: {
           100: '#e0e0e0',
           200: '#c2c2c2',
@@ -34,42 +16,52 @@ export const tokens = (mode: 'light' | 'dark') => ({
           800: '#292929',
           900: '#141414',
         },
-        background: {
-          default: '#121212',
-          paper: '#1e1e1e',
+        primary: {
+          100: '#d0d1d5',
+          200: '#a1a4ab',
+          300: '#727681',
+          400: '#1F2A40',
+          500: '#141b2d',
+          600: '#101624',
+          700: '#0c101b',
+          800: '#080b12',
+          900: '#040509',
         },
-        text: {
-          primary: '#ffffff',
-          secondary: '#b3b3b3',
+        greenAccent: {
+          100: '#dbf5ee',
+          200: '#b7ebde',
+          300: '#94e2cd',
+          400: '#70d8bd',
+          500: '#4cceac',
+          600: '#3da58a',
+          700: '#2e7c67',
+          800: '#1e5245',
+          900: '#0f2922',
         },
-        success: {
-          main: '#4caf50',
-          light: '#81c784',
-          dark: '#388e3c',
+        redAccent: {
+          100: '#f8dcdb',
+          200: '#f1b9b7',
+          300: '#e99592',
+          400: '#e2726e',
+          500: '#db4f4a',
+          600: '#af3f3b',
+          700: '#832f2c',
+          800: '#58201e',
+          900: '#2c100f',
         },
-        warning: {
-          main: '#ff9800',
-          light: '#ffb74d',
-          dark: '#f57c00',
-        },
-        error: {
-          main: '#f44336',
-          light: '#e57373',
-          dark: '#d32f2f',
+        blueAccent: {
+          100: '#e1e2fe',
+          200: '#c3c6fd',
+          300: '#a4a9fc',
+          400: '#868dfb',
+          500: '#6870fa',
+          600: '#535ac8',
+          700: '#3e4396',
+          800: '#2a2d64',
+          900: '#151632',
         },
       }
     : {
-        primary: {
-          100: '#05182a',
-          200: '#0a2f54',
-          300: '#0f477e',
-          400: '#145ea8',
-          500: '#1976d2',
-          600: '#3394dc',
-          700: '#66afe5',
-          800: '#99c9ed',
-          900: '#cce4f6',
-        },
         grey: {
           100: '#141414',
           200: '#292929',
@@ -81,45 +73,142 @@ export const tokens = (mode: 'light' | 'dark') => ({
           800: '#c2c2c2',
           900: '#e0e0e0',
         },
-        background: {
-          default: '#ffffff',
-          paper: '#f5f5f5',
+        primary: {
+          100: '#040509',
+          200: '#080b12',
+          300: '#0c101b',
+          400: '#f2f0f0',
+          500: '#141b2d',
+          600: '#1F2A40',
+          700: '#727681',
+          800: '#a1a4ab',
+          900: '#d0d1d5',
         },
-        text: {
-          primary: '#000000',
-          secondary: '#666666',
+        greenAccent: {
+          100: '#0f2922',
+          200: '#1e5245',
+          300: '#2e7c67',
+          400: '#3da58a',
+          500: '#4cceac',
+          600: '#70d8bd',
+          700: '#94e2cd',
+          800: '#b7ebde',
+          900: '#dbf5ee',
         },
-        success: {
-          main: '#2e7d32',
-          light: '#4caf50',
-          dark: '#1b5e20',
+        redAccent: {
+          100: '#2c100f',
+          200: '#58201e',
+          300: '#832f2c',
+          400: '#af3f3b',
+          500: '#db4f4a',
+          600: '#e2726e',
+          700: '#e99592',
+          800: '#f1b9b7',
+          900: '#f8dcdb',
         },
-        warning: {
-          main: '#ed6c02',
-          light: '#ff9800',
-          dark: '#e65100',
-        },
-        error: {
-          main: '#d32f2f',
-          light: '#ef5350',
-          dark: '#c62828',
+        blueAccent: {
+          100: '#151632',
+          200: '#2a2d64',
+          300: '#3e4396',
+          400: '#535ac8',
+          500: '#6870fa',
+          600: '#868dfb',
+          700: '#a4a9fc',
+          800: '#c3c6fd',
+          900: '#e1e2fe',
         },
       }),
 });
 
+// mui theme settings
+export const themeSettings = (mode) => {
+  const colors = tokens(mode);
+  return {
+    palette: {
+      mode: mode,
+      ...(mode === 'dark'
+        ? {
+            // palette values for dark mode
+            primary: {
+              main: colors.primary[500],
+            },
+            secondary: {
+              main: colors.greenAccent[500],
+            },
+            neutral: {
+              dark: colors.grey[700],
+              main: colors.grey[500],
+              light: colors.grey[100],
+            },
+            background: {
+              default: colors.primary[500],
+            },
+          }
+        : {
+            // palette values for light mode
+            primary: {
+              main: colors.primary[100],
+            },
+            secondary: {
+              main: colors.greenAccent[500],
+            },
+            neutral: {
+              dark: colors.grey[700],
+              main: colors.grey[500],
+              light: colors.grey[100],
+            },
+            background: {
+              default: '#fcfcfc',
+            },
+          }),
+    },
+    typography: {
+      fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+      fontSize: 12,
+      h1: {
+        fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+        fontSize: 40,
+      },
+      h2: {
+        fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+        fontSize: 32,
+      },
+      h3: {
+        fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+        fontSize: 24,
+      },
+      h4: {
+        fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+        fontSize: 20,
+      },
+      h5: {
+        fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+        fontSize: 16,
+      },
+      h6: {
+        fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+        fontSize: 14,
+      },
+    },
+  };
+};
+
+// context for color mode
+export const ColorModeContext = createContext({
+  toggleColorMode: () => {},
+});
+
 export const useMode = () => {
-  const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const [mode, setMode] = useState('dark');
 
-  const colorMode = useMemo(() => ({
-    toggleColorMode: () => setMode((prev) => (prev === 'light' ? 'dark' : 'light')),
-    }),[]
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () =>
+        setMode((prev) => (prev === 'light' ? 'dark' : 'light')),
+    }),
+    []
   );
 
-  const theme = useMemo(() =>createTheme({
-        palette: { mode, ...tokens(mode)},
-      }),
-    [mode]
-  );
-
-  return [theme, colorMode] as const;
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  return [theme, colorMode];
 };

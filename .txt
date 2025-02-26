@@ -189,3 +189,461 @@ export const useMode = () => {
 git remote add origin https://github.com/SultanYasin/portal_v01.git
 git branch -M main
 git push -u origin main
+
+
+___________________________________________________
+'use client';
+
+import React from 'react';
+import {
+  Box,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  Container,
+} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { tokens } from '../../theme';
+
+// Types for CMS Integration
+interface AboutContent {
+  mainHeading: string;
+  mainSubheading: string;
+  aboutUs: {
+    title: string;
+    description: string;
+  };
+  features: {
+    id: string;
+    title: string;
+    description: string;
+  }[];
+  contact: {
+    title: string;
+    email: string;
+    phone: string;
+    address: string;
+  };
+}
+
+// Static content
+const staticContent: AboutContent = {
+  mainHeading: 'About Us',
+  mainSubheading: 'Your Trusted Dashboard Solution',
+  aboutUs: {
+    title: 'Who We Are',
+    description:
+      'We are a dedicated team passionate about creating intuitive and powerful dashboard solutions. Our goal is to help businesses make better decisions through data visualization and analytics.',
+  },
+  features: [
+    {
+      id: '1',
+      title: 'Easy to Use',
+      description: 'Simple and intuitive interface for all users',
+    },
+    {
+      id: '2',
+      title: 'Powerful Analytics',
+      description: 'Advanced tools for deep data analysis',
+    },
+    {
+      id: '3',
+      title: 'Secure',
+      description: 'Enterprise-grade security for your data',
+    },
+  ],
+  contact: {
+    title: 'Get in Touch',
+    email: 'contact@example.com',
+    phone: '+1 (555) 123-4567',
+    address: '123 Dashboard Street, Analytics City, 12345',
+  },
+};
+
+// CMS Integration Hook (commented out for future use)
+/*
+const useAboutContent = () => {
+  const [content, setContent] = React.useState<AboutContent>(staticContent);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/about');
+        const data = await response.json();
+        setContent(data);
+      } catch (err) {
+        setError('Failed to load content');
+        // Fallback to static content
+        setContent(staticContent);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Uncomment when CMS is ready
+    // fetchContent();
+  }, []);
+
+  return { content, loading, error };
+};
+*/
+
+export default function About() {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
+  // When ready for CMS, uncomment this and remove staticContent usage
+  // const { content, loading, error } = useAboutContent();
+  const content = staticContent;
+
+  // Standardized typography styles
+  const typographyStyles = {
+    pageTitle: {
+      variant: 'h1' as const,
+      sx: {
+        fontSize: '2.5rem',
+        fontWeight: 'bold',
+        color: colors.grey[100],
+        mb: 2,
+      },
+    },
+    sectionTitle: {
+      variant: 'h2' as const,
+      sx: {
+        fontSize: '2rem',
+        fontWeight: 'bold',
+        color: colors.grey[100],
+        mb: 2,
+      },
+    },
+    subtitle: {
+      variant: 'h3' as const,
+      sx: {
+        fontSize: '1.5rem',
+        color: colors.grey[200],
+        mb: 4,
+      },
+    },
+    cardTitle: {
+      variant: 'h4' as const,
+      sx: {
+        fontSize: '1.3rem',
+        color: colors.grey[100],
+        mb: 2,
+      },
+    },
+    bodyText: {
+      variant: 'body1' as const,
+      sx: {
+        fontSize: '1rem',
+        color: colors.grey[200],
+        lineHeight: 1.6,
+      },
+    },
+  };
+
+  return (
+    <Container maxWidth="lg">
+      <Box sx={{ py: 8 }}>
+        {/* Header Section */}
+        <Box textAlign="center" mb={8}>
+          <Typography {...typographyStyles.pageTitle}>
+            {content.mainHeading}
+          </Typography>
+          <Typography {...typographyStyles.subtitle}>
+            {content.mainSubheading}
+          </Typography>
+        </Box>
+
+        {/* About Us Section */}
+        <Box mb={8}>
+          <Card sx={{ backgroundColor: colors.primary[400] }}>
+            <CardContent sx={{ padding: 4 }}>
+              <Typography {...typographyStyles.sectionTitle}>
+                {content.aboutUs.title}
+              </Typography>
+              <Typography {...typographyStyles.bodyText}>
+                {content.aboutUs.description}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Box>
+
+        {/* Features Section */}
+        <Box mb={8}>
+          <Typography {...typographyStyles.sectionTitle} textAlign="center">
+            What We Offer
+          </Typography>
+          <Grid container spacing={4}>
+            {content.features.map((feature) => (
+              <Grid item xs={12} md={4} key={feature.id}>
+                <Card
+                  sx={{
+                    height: '100%',
+                    backgroundColor: colors.primary[400],
+                    '&:hover': {
+                      backgroundColor: colors.primary[300],
+                      transition: 'background-color 0.3s',
+                    },
+                  }}
+                >
+                  <CardContent sx={{ padding: 4 }}>
+                    <Typography {...typographyStyles.cardTitle}>
+                      {feature.title}
+                    </Typography>
+                    <Typography {...typographyStyles.bodyText}>
+                      {feature.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+
+        {/* Contact Section */}
+        <Box>
+          <Card sx={{ backgroundColor: colors.primary[400] }}>
+            <CardContent sx={{ padding: 4 }}>
+              <Typography {...typographyStyles.sectionTitle} textAlign="center">
+                {content.contact.title}
+              </Typography>
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography {...typographyStyles.bodyText} mb={1}>
+                  Email: {content.contact.email}
+                </Typography>
+                <Typography {...typographyStyles.bodyText} mb={1}>
+                  Phone: {content.contact.phone}
+                </Typography>
+                <Typography {...typographyStyles.bodyText}>
+                  Address: {content.contact.address}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Box>
+      </Box>
+    </Container>
+  );
+}
+___________________________________________________'use client';
+
+import * as React from 'react';
+import {
+  Box,
+  Typography,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { tokens } from '../../theme';
+
+// Types for CMS Integration
+interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+  category?: string;
+  lastUpdated?: string;
+}
+
+interface FAQPageContent {
+  title: string;
+  subtitle: string;
+  faqs: FAQItem[];
+}
+
+// Static content (will be replaced by CMS data later)
+const staticContent: FAQPageContent = {
+  title: 'Frequently Asked Questions',
+  subtitle: 'Find answers to common questions about our dashboard',
+  faqs: [
+    {
+      id: '1',
+      question: 'What is this dashboard about?',
+      answer:
+        'This dashboard provides comprehensive analytics and management tools for your business operations. It includes features for team management, data visualization, and performance tracking.',
+    },
+    {
+      id: '2',
+      question: 'How do I manage team members?',
+      answer:
+        "You can manage team members through the 'Manage Team' section. This allows you to add new members, assign roles, and adjust permissions for existing team members.",
+    },
+    {
+      id: '3',
+      question: 'How can I customize my dashboard?',
+      answer:
+        'The dashboard can be customized through the settings menu. You can adjust the layout, choose which metrics to display, and set up custom notifications based on your preferences.',
+    },
+    {
+      id: '4',
+      question: 'Is my data secure?',
+      answer:
+        'Yes, we implement industry-standard security measures including encryption, secure authentication, and regular security audits to ensure your data remains protected.',
+    },
+    {
+      id: '5',
+      question: 'How often is the data updated?',
+      answer:
+        'Dashboard data is updated in real-time for most metrics. Historical data and complex analytics may be updated at regular intervals, typically every 24 hours.',
+    },
+  ],
+};
+
+// CMS Integration (commented out for future use)
+/*
+const useFAQContent = () => {
+  const [content, setContent] = React.useState<FAQPageContent>(staticContent);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        setLoading(true);
+        // Replace with your CMS API endpoint
+        const response = await fetch('/api/faqs');
+        const data = await response.json();
+        setContent(data);
+      } catch (err) {
+        setError('Failed to load FAQ content');
+        // Fallback to static content
+        setContent(staticContent);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Uncomment the next line when CMS is ready
+    // fetchContent();
+  }, []);
+
+  return { content, loading, error };
+};
+*/
+
+export default function FAQ() {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
+  //  ready for CMS ?, uncomment this and remove the direct staticContent usage
+  // const { content, loading, error } = useFAQContent();
+  const content = staticContent; // This line will be replaced by CMS integration
+
+  return (
+    <Box
+      sx={{
+        maxWidth: '900px',
+        margin: '40px auto',
+        padding: '0 20px',
+      }}
+    >
+      {/* Header Section */}
+      <Box mb={5} textAlign="center">
+        <Typography
+          variant="h1"
+          sx={{
+            mb: 2,
+            fontSize: '2rem',
+            fontWeight: 'bold',
+            color: colors.grey[100],
+        }}
+        >
+          {content.title}
+        </Typography>
+        <Typography
+          variant="h5"
+          sx={{
+              color: colors.grey[100],
+              mb: 4,
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+          }}
+        >
+          {content.subtitle}
+        </Typography>
+      </Box>
+
+
+      <Box>
+        {content.faqs.map((faq) => (
+          <Accordion
+            key={faq.id}
+            sx={{
+              mb: 2,
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+              '&:before': {
+                display: 'none',
+              },
+              '&:hover': {
+                boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+              },
+              backgroundColor: colors.primary[400],
+            }}
+          >
+            <AccordionSummary
+              expandIcon={
+                <ExpandMoreIcon
+                  sx={{
+                    color: colors.grey[100],
+                    fontSize: '1.5rem',
+                  }}
+                />
+              }
+              sx={{
+                '& .MuiAccordionSummary-content': {
+                  margin: '16px 0',
+                },
+              }}
+            >
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 'medium',
+                  color: colors.grey[100],
+                  fontSize: '1.5rem',
+                }}
+              >
+                {faq.question}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails
+              sx={{
+                backgroundColor: colors.primary[400],
+                padding: '20px 30px 30px',
+              }}
+            >
+              <Typography
+                sx={{
+                  color: colors.grey[100],
+                  lineHeight: 1.6,
+                  fontSize: '1.3rem',
+                }}
+              >
+                {faq.answer}
+              </Typography>
+              {faq.lastUpdated && (
+                <Typography
+                  sx={{
+                    color: colors.grey[300],
+                    fontSize: '0.9rem',
+                    mt: 2,
+                  }}
+                >
+                  Last updated: {new Date(faq.lastUpdated).toLocaleDateString()}
+                </Typography>
+              )}
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </Box>
+    </Box>
+  );
+}

@@ -12,6 +12,8 @@ import ThemeWrapper from '@/components/theme/theme-wrapper';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
 import PageContainer from '@/components/layout/page-container';
+import Sidebar from '@/components/layout/sidebar';
+import { Box } from '@mui/material';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -38,9 +40,31 @@ export default function RootLayout({
       >
         <ThemeWrapper>
           <PageContainer>
-            <Navbar />
-            {children}
-            <Footer />
+            <Box
+              sx={{
+                display: 'flex',
+                minHeight: '100vh',
+                width: '100%',
+              }}
+            >
+              <Sidebar />
+              <Box
+                component="main"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  flexGrow: 1,
+                  minHeight: '100vh',
+                  position: 'relative',
+                }}
+              >
+                <Navbar />
+                <Box sx={{ flexGrow: 1, pb: '60px' }}>
+                  {children}
+                </Box>
+                <Footer />
+              </Box>
+            </Box>
           </PageContainer>
         </ThemeWrapper>
       </body>
