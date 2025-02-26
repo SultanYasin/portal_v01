@@ -17,11 +17,13 @@ const Navbar = () => {
 
   return (
     <Box
-      display="flex"
-      justifyContent="space-between"
-      p={2}
-      backgroundColor={theme.palette.background.default}
-      color={theme.palette.text.primary}
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        p: 2,
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.text.primary,
+      }}
     >
       {/* SEARCH BAR */}
       <Box display="flex" borderRadius="3px">

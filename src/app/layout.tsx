@@ -59,9 +59,7 @@ export default function RootLayout({
                 }}
               >
                 <Navbar />
-                <Box sx={{ flexGrow: 1, pb: '60px' }}>
-                  {children}
-                </Box>
+                <Box sx={{ flexGrow: 1, pb: '60px' }}>{children}</Box>
                 <Footer />
               </Box>
             </Box>

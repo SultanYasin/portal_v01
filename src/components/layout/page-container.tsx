@@ -12,10 +12,14 @@ export default function PageContainer({
   return (
     <Box
       sx={{
-        backgroundColor: theme.palette.background.default,
+        backgroundColor:
+          theme.palette.mode === 'dark'
+            ? theme.palette.background.default
+            : '#fcfcfc',
         color: theme.palette.text.primary,
         minHeight: '100vh',
         width: '100%',
+        transition: 'all 0.3s linear',
       }}
     >
       {children}
