@@ -13,6 +13,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { tokens } from '../../theme';
 
+import person_img from '../../../public/images/images.png';
+
 // Import icons
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
@@ -24,6 +26,7 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
 import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import InfoIcon from '@mui/icons-material/Info';
 
 interface ItemProps {
   title: string;
@@ -44,10 +47,10 @@ const Item = ({ title, to, icon, selected, setSelected }: ItemProps) => {
       icon={icon}
       component={<Link href={to} />}
       style={{
-        color: colors.grey[100],
+        color: colors.grey[600],
       }}
     >
-      <Typography variant="body1">{title}</Typography>
+      <Typography variant="h5">{title}</Typography>
     </MenuItem>
   );
 };
@@ -120,7 +123,6 @@ const SidebarComponent = () => {
           fontSize: '14px',
           color: styles.text,
         },
-        // Add a subtle gradient overlay in dark mode
         '&::before':
           currentMode === 'dark'
             ? {
@@ -196,7 +198,7 @@ const SidebarComponent = () => {
                   width={80}
                   height={80}
                   alt="profile-user"
-                  src="/path-to-your-image.jpg"
+                  src={person_img}
                   style={{
                     cursor: 'pointer',
                     borderRadius: '50%',
@@ -238,14 +240,20 @@ const SidebarComponent = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
+            <Item
+              title="About"
+              to="/about"
+              icon={<InfoIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            {/* //TODO: chg font when collaps */}
             <Typography
               variant="h5"
               sx={{
                 m: '15px 0 5px 20px',
                 color: colors.grey[500],
                 fontWeight: 'bold',
-                
               }}
             >
               Data

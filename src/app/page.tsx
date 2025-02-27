@@ -32,18 +32,18 @@ export default function Home() {
     <Box
       component="main"
       sx={{
-        minHeight: '100vh',
+        minHeight: '80vh',
         display: 'flex',
         alignItems: 'center',
-        pt: { xs: 12, md: 16 },
-        pb: { xs: 8, md: 12 },
+        pt: { xs: 8, md: 14 },
+        pb: { xs: 8, md: 5 },
         bgcolor: 'background.default',
       }}
     >
       <Container
         maxWidth="xl"
         sx={{
-          px: { xs: 2, sm: 4, md: 8 },
+          px: { xs: 2, sm: 4, md: 6 },
         }}
       >
         <Grid container spacing={{ xs: 8, md: 12 }} alignItems="center">
@@ -101,9 +101,11 @@ export default function Home() {
                   opacity: 0.9,
                 }}
               >
-                We help ambitious businesses like yours generate more profits by
-                building awareness, driving web traffic, and growing overall
-                sales.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam
+                explicabo accusamus deleniti ipsam consequuntur minima voluptate
+                voluptatum aspernatur aliquam accusantium quibusdam itaque sint
+                reprehenderit, numquam enim odio, pariatur id quaerat blanditiis
+                nihil facilis. .
               </Typography>
 
               <Box
@@ -189,7 +191,7 @@ export default function Home() {
           </Grid>
 
           {/* Right Content - Service Cards */}
-          <Grid item xs={12} md={6}>
+          {/*        <Grid item xs={12} md={6}>
             <Box
               sx={{
                 display: 'grid',
@@ -257,7 +259,7 @@ export default function Home() {
                 );
               })}
             </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </Box>
