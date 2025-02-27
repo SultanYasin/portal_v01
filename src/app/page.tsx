@@ -191,7 +191,9 @@ export default function Home() {
           </Grid>
 
           {/* Right Content - Service Cards */}
-          {/*        <Grid item xs={12} md={6}>
+
+          
+        <Grid item xs={12} md={6}>
             <Box
               sx={{
                 display: 'grid',
@@ -259,7 +261,9 @@ export default function Home() {
                 );
               })}
             </Box>
-          </Grid> */}
+          </Grid> 
+
+
         </Grid>
       </Container>
     </Box>

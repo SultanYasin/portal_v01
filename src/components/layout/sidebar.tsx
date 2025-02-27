@@ -324,7 +324,7 @@ const SidebarComponent = () => {
             </Typography>
             <Item
               title="Bar Chart"
-              to="/bar"
+              to="/chart"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -333,13 +333,11 @@ const SidebarComponent = () => {
             <SubMenu
               label="Analytics"
               icon={<BarChartOutlinedIcon />}
-              style={{
-                color: colors.grey[100],
-              }}
+              style={{ color: colors.grey[100] }}
             >
               <Item
                 title="Line Chart"
-                to="/line"
+                to="/chart"
                 icon={<TimelineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
