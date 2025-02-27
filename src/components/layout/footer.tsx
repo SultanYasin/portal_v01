@@ -17,11 +17,68 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
-// This could come from your CMS
-const footerData = {
+// Types for CMS data
+type SocialLink = {
+  name: string;
+  url: string;
+  icon: any; // In CMS this would be a string/URL, transformed to icon component
+};
+
+type FooterLink = {
+  label: string;
+  href: string;
+};
+
+type FooterSection = {
+  title: string;
+  links: FooterLink[];
+};
+
+type FooterData = {
+  company: {
+    name: string;
+    description: string;
+    socialLinks: SocialLink[];
+  };
+  sections: FooterSection[];
+};
+
+// Map of icon names to components (for CMS integration)
+const iconMap = {
+  TwitterIcon,
+  LinkedInIcon,
+  GitHubIcon,
+  FacebookIcon,
+  InstagramIcon,
+};
+
+// Function to fetch data from CMS
+/*
+async function getFooterData(): Promise<FooterData> {
+  try {
+    // Example fetch from CMS
+    // const res = await fetch('your-cms-endpoint/footer');
+    // const data = await res.json();
+    
+    // Transform CMS data to match our types
+    // Example: Convert icon strings to components
+    // data.company.socialLinks = data.company.socialLinks.map(link => ({
+    //   ...link,
+    //   icon: iconMap[link.iconName]
+    // }));
+    
+    // return data;
+  } catch (error) {
+    console.error('Failed to fetch footer data:', error);
+    return defaultFooterData;
+  }
+}
+*/
+
+// Default/fallback data
+const defaultFooterData: FooterData = {
   company: {
     name: 'YourCompany',
-    logo: '/logo.svg',
     description: 'Making the world a better place.',
     socialLinks: [
       { name: 'Twitter', url: 'https://twitter.com', icon: TwitterIcon },
@@ -38,7 +95,6 @@ const footerData = {
         { label: 'Features', href: '/features' },
         { label: 'Pricing', href: '/pricing' },
         { label: 'Solutions', href: '/solutions' },
-        { label: 'Customers', href: '/customers' },
       ],
     },
     {
@@ -46,7 +102,6 @@ const footerData = {
       links: [
         { label: 'About Us', href: '/about' },
         { label: 'Careers', href: '/careers' },
-        { label: 'Press', href: '/press' },
         { label: 'News', href: '/news' },
       ],
     },
@@ -55,7 +110,6 @@ const footerData = {
       links: [
         { label: 'Blog', href: '/blog' },
         { label: 'Documentation', href: '/docs' },
-        { label: 'Help Center', href: '/help' },
         { label: 'Contact', href: '/contact' },
       ],
     },
@@ -63,7 +117,6 @@ const footerData = {
       title: 'Legal',
       links: [
         { label: 'Privacy Policy', href: '/privacy' },
-        { label: 'Terms of Service', href: '/terms' },
         { label: 'Cookie Policy', href: '/cookies' },
         { label: 'Security', href: '/security' },
       ],
@@ -73,7 +126,20 @@ const footerData = {
 
 const Footer = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+
+  // Example of how to use with React Query or SWR
+  /*
+  const { data: footerData = defaultFooterData, isLoading } = useSWR(
+    'footer',
+    getFooterData
+  );
+
+  if (isLoading) {
+    return <FooterSkeleton />;
+  }
+  */
+
+  const footerData = defaultFooterData; // Using default data for now
 
   return (
     <Box
@@ -81,7 +147,7 @@ const Footer = () => {
       sx={{
         backgroundColor: theme.palette.background.paper,
         color: theme.palette.text.primary,
-        py: 6,
+        py: 3,
         borderTop: `1px solid ${theme.palette.divider}`,
       }}
     >
@@ -144,9 +210,6 @@ const Footer = () => {
                       style={{
                         color: theme.palette.text.secondary,
                         textDecoration: 'none',
-                        '&:hover': {
-                          color: theme.palette.primary.main,
-                        },
                       }}
                     >
                       {link.label}
