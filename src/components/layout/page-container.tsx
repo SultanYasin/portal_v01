@@ -14,7 +14,7 @@ export default function PageContainer({
       sx={{
         backgroundColor:
           theme.palette.mode === 'dark'
-            ? theme.palette.background.default
+            ? theme.palette.background.default 
             : '#fcfcfc',
         color: theme.palette.text.primary,
         minHeight: '100vh',

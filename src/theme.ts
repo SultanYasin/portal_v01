@@ -134,7 +134,8 @@ export const themeSettings = (mode: PaletteMode) => {
       ...(mode === 'dark'
         ? {
             primary: {
-              main: colors.primary[500],
+              main: '#C0C0C0',
+              dark: '#D3D3D3',
             },
             secondary: {
               main: colors.greenAccent[500],
@@ -145,7 +146,7 @@ export const themeSettings = (mode: PaletteMode) => {
             },
             text: {
               primary: '#ffffff',
-              secondary: colors.grey[300],
+              secondary: 'rgba(255, 255, 255, 0.85)',
             },
           }
         : {
@@ -157,7 +158,7 @@ export const themeSettings = (mode: PaletteMode) => {
             },
             background: {
               default: '#ffffff',
-              paper: colors.grey[50],
+              paper: '#f5f5f5',
             },
             text: {
               primary: colors.grey[900],
